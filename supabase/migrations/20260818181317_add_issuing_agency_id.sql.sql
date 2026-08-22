@@ -1,0 +1,1 @@
+ALTER TABLE policies ADD COLUMN IF NOT EXISTS issuing_agency_id uuid REFERENCES agencies(id) ON DELETE SET NULL;

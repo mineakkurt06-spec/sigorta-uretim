@@ -1,0 +1,1 @@
+ALTER TABLE quote_items ADD COLUMN IF NOT EXISTS agency_id uuid REFERENCES agencies(id) ON DELETE SET NULL;
