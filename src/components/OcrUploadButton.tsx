@@ -3,7 +3,7 @@ import { FileScan, Loader2 } from 'lucide-react';
 import { extractPolicyData, type ExtractedPolicyData } from '@/lib/ocr/extractPolicyData';
 
 type OcrUploadButtonProps = {
-  onExtracted: (data: ExtractedPolicyData) => void;
+  onExtracted: (data: ExtractedPolicyData, file: File) => void;
   companies: { name: string }[];
   agencies: { id: string; name: string }[];
 };
@@ -40,25 +40,19 @@ export function OcrUploadButton({ onExtracted, companies, agencies }: OcrUploadB
   const [error, setError] = useState('');
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('1) handleFile TETİKLENDİ');
     const file = e.target.files?.[0];
-    console.log('2) seçilen dosya:', file);
     if (!file) return;
     setLoading(true);
     setError('');
     try {
-      console.log('3) extractPolicyData ÇAĞRILIYOR');
       const data = await extractPolicyData(file);
-      console.log('4) HAM SONUÇ:', data);
       const enriched: ExtractedPolicyData = {
         ...data,
         sigortaSirketi: data.sigortaSirketi ? matchCompany(data.sigortaSirketi, companies) : null,
         acente: data.acente ? matchAgency(data.acente, agencies) : null,
       };
-      console.log('5) EŞLEŞTİRİLMİŞ SONUÇ:', enriched);
-      onExtracted(enriched);
-    } catch (err) {
-      console.error('6) HATA YAKALANDI:', err);
+      onExtracted(enriched, file);
+    } catch {
       setError('Belge okunamadı, lütfen alanları manuel doldurun.');
     } finally {
       setLoading(false);
@@ -71,10 +65,7 @@ export function OcrUploadButton({ onExtracted, companies, agencies }: OcrUploadB
       <button
         type="button"
         disabled={loading}
-        onClick={() => {
-          console.log('0) BUTONA TIKLANDI, input tetikleniyor');
-          inputRef.current?.click();
-        }}
+        onClick={() => inputRef.current?.click()}
         className="btn-secondary flex items-center gap-2"
       >
         {loading ? <Loader2 size={16} className="animate-spin" /> : <FileScan size={16} />}
