@@ -43,6 +43,7 @@ export type Customer = {
   arac_kodu: string;
   arac_tipi: string;
   uavt_adres_kodu: string;
+  adres: string | null;
   notes: string | null;
 };
 
