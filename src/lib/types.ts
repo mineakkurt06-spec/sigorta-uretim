@@ -23,6 +23,7 @@ export type Policy = {
   bank_account_id?: string | null;
   branch_group?: string;
   issuing_agency_id?: string | null;
+  belge_seri_no?: string | null;
 };
 
 export type Customer = {
