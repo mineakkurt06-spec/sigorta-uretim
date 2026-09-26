@@ -24,6 +24,12 @@ export type Policy = {
   branch_group?: string;
   issuing_agency_id?: string | null;
   belge_seri_no?: string | null;
+  durum?: string | null;
+  iptal_tarihi?: string | null;
+  iptal_nedeni?: string | null;
+  iade_tutari?: number | null;
+  iptal_notu?: string | null;
+  iptal_net_prim?: number | null;
 };
 
 export type Customer = {

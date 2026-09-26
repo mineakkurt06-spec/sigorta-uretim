@@ -81,7 +81,7 @@ export function CustomerPoliciesPage({ policies, customers, agencies, companies 
 
       if (search) {
         const q = search.toLowerCase();
-        const haystack = `${p.musteri_adi} ${p.police_no} ${p.plaka} ${p.sigorta_sirketi} ${p.sigorta_turu}`.toLowerCase();
+        const haystack = `${p.musteri_adi} ${p.police_no} ${p.belge_seri_no || ''} ${p.plaka} ${p.sigorta_sirketi} ${p.sigorta_turu}`.toLowerCase();
         if (!haystack.includes(q)) return false;
       }
 
